@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>隨便你報天氣預報</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>天氣預報</h1>
+            <div class="city-search-form">
+                <input type="text" id="city-input" placeholder="輸入城市名稱 (例如：臺北市)">
+                <button id="add-city-btn">新增城市</button>
+            </div>
+        </header>
+
+        <main>
+            <div id="saved-cities-list">
+                </div>
+
+            <div class="weather-card current-weather">
+                <h2 id="current-city-name">讀取中...</h2>
+                <div class="weather-main">
+                    <div id="weather-animation"></div>
+                    <div class="current-temp">
+                        <span id="current-temp-value">--</span><span class="degree">°C</span>
+                    </div>
+                </div>
+                <p id="current-weather-description">--</p>
+                <div class="weather-details">
+                    <div>
+                        <p>濕度</p>
+                        <p id="current-humidity">--%</p>
+                    </div>
+                    <div>
+                        <p>風速</p>
+                        <p id="current-wind-speed">-- m/s</p>
+                    </div>
+                    <div>
+                        <p>降雨機率</p>
+                        <p id="current-pop">--%</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="forecast-container">
+                <h3>未來 36 小時預報</h3>
+                <div id="forecast-grid">
+                    </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
