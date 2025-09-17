@@ -1,7 +1,5 @@
-# netlify.toml
 [build]
-  functions = "netlify/functions"
-  publish = "build"
+  publish = "."
 
 [[redirects]]
   from = "/*"
