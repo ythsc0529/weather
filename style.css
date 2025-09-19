@@ -36,59 +36,33 @@ header h1 {
     margin-bottom: 1rem;
 }
 
-.city-search-form {
+.city-selector-container {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    margin-bottom: 1.5rem;
 }
 
-#city-input {
+#city-selector {
     padding: 10px 15px;
-    border: none;
+    border: 1px solid var(--secondary-color);
     border-radius: 20px;
     background-color: var(--primary-color);
     color: var(--text-color);
     font-size: 1rem;
     width: 250px;
     outline: none;
-}
-
-#add-city-btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 20px;
-    background-color: var(--secondary-color);
-    color: white;
-    font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23e0e0e0' class='bi bi-caret-down-fill' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    padding-right: 40px; /* 確保文字不會蓋住箭頭 */
 }
 
-#add-city-btn:hover {
-    background-color: #c43751;
-}
-
-#saved-cities-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 1.5rem;
-}
-
-.city-btn {
-    padding: 8px 15px;
-    border: 1px solid var(--secondary-color);
-    border-radius: 20px;
-    background-color: transparent;
-    color: var(--secondary-color);
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.city-btn.active, .city-btn:hover {
-    background-color: var(--secondary-color);
-    color: white;
+#city-selector:hover {
+    border-color: #c43751;
 }
 
 .weather-card {
@@ -178,6 +152,10 @@ header h1 {
     text-align: center;
     opacity: 0;
     animation: fadeIn 0.5s forwards;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .forecast-card p {
@@ -187,6 +165,12 @@ header h1 {
 .forecast-time {
     font-size: 0.9rem;
     color: var(--subtext-color);
+}
+
+.forecast-icon {
+    width: 40px;
+    height: 40px;
+    margin: 8px 0;
 }
 
 .forecast-temp {
