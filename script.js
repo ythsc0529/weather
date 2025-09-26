@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentWindSpeed = document.getElementById('current-wind-speed');
     const currentPoP = document.getElementById('current-pop'); // PoP = Probability of Precipitation
     const forecastGrid = document.getElementById('forecast-grid');
+    const currentObservationTime = document.getElementById('current-observation-time');
+    const currentApparentTemp = document.getElementById('current-apparent-temp');
 
     let lottieAnimation; // 用於儲存 Lottie 動畫實例
 
@@ -84,10 +86,33 @@ document.addEventListener('DOMContentLoaded', () => {
             pop: weatherElement[1].time[0].parameter, // 降雨機率
             minT: weatherElement[2].time[0].parameter, // 最低溫度
             maxT: weatherElement[4].time[0].parameter, // 最高溫度
-            // 濕度與風速在 F-C0032-001 API 中沒有提供，此處為示意
-            // 若需要，需串接另一支 API (如：自動氣象站觀測資料 O-A0001-001)
-            // 這裡我們先用降雨機率和溫度範圍替代
         };
+
+        // 擷取時間（使用天氣現象的 time.startTime 作為該狀態的時間）
+        let obsTime = '--';
+        try {
+            const startTime = weatherElement[0].time[0].startTime; // 格式通常為 "YYYY-MM-DD HH:mm:ss"
+            // 只保留日期與時分
+            obsTime = startTime ? startTime.replace(':00', '').replace(/^\s+|\s+$/g, '') : '--';
+        } catch (e) {
+            obsTime = '--';
+        }
+
+        // 嘗試尋找「體感溫度」元素（不同資料集名稱可能不同）
+        let apparent = '--';
+        try {
+            const apparentEl = weatherElement.find(el => {
+                const name = (el.elementName || '').toString().toLowerCase();
+                const desc = (el.description || '').toString().toLowerCase();
+                // 包含多種可能命名（AT、apparent、體感、comfort）
+                return name.includes('at') || name.includes('apparent') || name.includes('apparenttemperature') || desc.includes('體感') || name.includes('comfort');
+            });
+            if (apparentEl && apparentEl.time && apparentEl.time[0] && apparentEl.time[0].parameter) {
+                apparent = apparentEl.time[0].parameter.parameterName;
+            }
+        } catch (e) {
+            apparent = '--';
+        }
 
         const avgTemp = (parseFloat(currentData.minT.parameterName) + parseFloat(currentData.maxT.parameterName)) / 2;
         
@@ -99,6 +124,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // 濕度和風速為示意，實際需要串接不同 API
         currentHumidity.textContent = '--%'; 
         currentWindSpeed.textContent = '-- m/s';
+
+        // 顯示擷取時間與體感溫度
+        currentObservationTime.textContent = `擷取時間: ${obsTime}`;
+        currentApparentTemp.textContent = (apparent !== '--') ? `${apparent}°C` : '--';
         
         playLottieAnimation(getWeatherAnimationPath(currentData.wx.parameterValue));
     }

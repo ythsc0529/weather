@@ -114,11 +114,24 @@ header h1 {
     color: var(--subtext-color);
 }
 
+#current-observation-time {
+    margin: 6px 0 0 0;
+    color: var(--subtext-color);
+    font-size: 0.95rem;
+}
+
 .weather-details {
     display: flex;
     justify-content: space-around;
     border-top: 1px solid var(--primary-color);
     padding-top: 20px;
+    flex-wrap: wrap;
+}
+
+.weather-details > div {
+    width: 24%;
+    min-width: 120px;
+    box-sizing: border-box;
 }
 
 .weather-details > div p:first-child {
